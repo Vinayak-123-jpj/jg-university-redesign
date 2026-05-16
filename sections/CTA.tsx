@@ -7,100 +7,168 @@ export default function CTA() {
   return (
     <section className="relative overflow-hidden bg-[#07111F] py-40">
       {/* BACKGROUND GLOWS */}
-      <div className="absolute left-0 top-0 h-[400px] w-[400px] rounded-full bg-blue-500/20 blur-[120px]" />
+      <motion.div
+        animate={{ scale: [1, 1.4, 1], opacity: [0.15, 0.28, 0.15] }}
+        transition={{ duration: 7, repeat: Infinity }}
+        className="absolute left-0 top-0 h-[500px] w-[500px] rounded-full bg-blue-500/20 blur-[140px]"
+      />
+      <motion.div
+        animate={{ scale: [1, 1.3, 1], opacity: [0.1, 0.2, 0.1] }}
+        transition={{ duration: 9, repeat: Infinity, delay: 2 }}
+        className="absolute bottom-0 right-0 h-[400px] w-[400px] rounded-full bg-cyan-400/10 blur-[120px]"
+      />
 
-      <div className="absolute bottom-0 right-0 h-[400px] w-[400px] rounded-full bg-cyan-400/10 blur-[120px]" />
+      {/* Animated dot grid */}
+      <div
+        className="absolute inset-0 opacity-[0.025]"
+        style={{
+          backgroundImage:
+            "radial-gradient(circle, #60a5fa 1px, transparent 1px)",
+          backgroundSize: "48px 48px",
+        }}
+      />
 
       <div className="container-custom relative z-10">
         <motion.div
-          initial={{ opacity: 0, y: 40 }}
+          initial={{ opacity: 0, y: 60 }}
           whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
+          transition={{ duration: 0.9 }}
           viewport={{ once: true }}
-          className="relative overflow-hidden rounded-[48px] border border-white/10 bg-white/5 px-8 py-24 text-center backdrop-blur-2xl md:px-16"
+          className="relative overflow-hidden rounded-[52px] border border-white/10 bg-white/[0.04] px-8 py-24 text-center backdrop-blur-2xl"
         >
-          {/* INNER GLOW */}
-          <div className="absolute left-1/2 top-0 h-[300px] w-[300px] -translate-x-1/2 rounded-full bg-blue-500/20 blur-[100px]" />
+          {/* Inner glow */}
+          <motion.div
+            animate={{ scale: [1, 1.3, 1], opacity: [0.15, 0.3, 0.15] }}
+            transition={{ duration: 6, repeat: Infinity }}
+            className="absolute left-1/2 top-0 h-[350px] w-[350px] -translate-x-1/2 rounded-full bg-blue-500/20 blur-[100px]"
+          />
+
+          {/* Animated border rings */}
+          {[1, 0.7, 0.4].map((opacity, i) => (
+            <motion.div
+              key={i}
+              animate={{ scale: [1, 1.04, 1] }}
+              transition={{ duration: 4 + i, repeat: Infinity, delay: i * 0.8 }}
+              className="absolute inset-0 rounded-[52px] border border-white/10"
+              style={{ opacity }}
+            />
+          ))}
 
           <div className="relative z-10">
             {/* TAG */}
-            <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/10 px-5 py-2 text-sm text-blue-200 backdrop-blur-xl">
-              <Sparkles size={16} />
+            <motion.div
+              initial={{ opacity: 0, scale: 0.8, y: 20 }}
+              whileInView={{ opacity: 1, scale: 1, y: 0 }}
+              transition={{ type: "spring", delay: 0.1 }}
+              viewport={{ once: true }}
+              className="mb-6 inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/10 px-5 py-2 text-sm text-blue-200 backdrop-blur-xl"
+            >
+              <motion.span
+                animate={{ rotate: [0, 20, 0] }}
+                transition={{ duration: 3, repeat: Infinity }}
+              >
+                <Sparkles size={16} />
+              </motion.span>
               Admissions Open 2026
-            </div>
+            </motion.div>
 
             {/* TITLE */}
-            <h2 className="mx-auto max-w-5xl text-4xl font-black leading-tight text-white sm:text-5xl md:text-7xl">
+            <motion.h2
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.7, delay: 0.15 }}
+              viewport={{ once: true }}
+              className="mx-auto max-w-5xl text-4xl font-black leading-tight text-white sm:text-5xl md:text-7xl"
+            >
               Shape The Future
               <span className="block bg-gradient-to-r from-blue-400 to-cyan-300 bg-clip-text text-transparent">
                 With Innovation
               </span>
-            </h2>
+            </motion.h2>
 
             {/* DESCRIPTION */}
-            <p className="mx-auto mt-8 max-w-3xl text-lg leading-relaxed text-slate-300">
+            <motion.p
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.7, delay: 0.25 }}
+              viewport={{ once: true }}
+              className="mx-auto mt-8 max-w-3xl text-lg leading-relaxed text-slate-300"
+            >
               Join a new generation of learners building tomorrow through
               creativity, technology, leadership, and innovation-driven
               experiences.
-            </p>
+            </motion.p>
 
             {/* BUTTONS */}
-            <div className="mt-14 flex flex-col items-center justify-center gap-5 sm:flex-row">
-              {/* PRIMARY BUTTON */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.7, delay: 0.35 }}
+              viewport={{ once: true }}
+              className="mt-14 flex flex-col items-center justify-center gap-5 sm:flex-row"
+            >
               <motion.button
                 whileHover={{
-                  scale: 1.05,
+                  scale: 1.06,
+                  boxShadow: "0 20px 60px rgba(37,99,235,0.5)",
                 }}
-                whileTap={{
-                  scale: 0.96,
-                }}
-                className="group flex items-center gap-3 rounded-full bg-gradient-to-r from-blue-600 to-cyan-500 px-8 py-4 text-lg font-semibold text-white shadow-[0_10px_40px_rgba(37,99,235,0.4)] transition-all duration-300"
+                whileTap={{ scale: 0.97 }}
+                className="group flex items-center gap-3 rounded-full bg-gradient-to-r from-blue-600 to-cyan-500 px-10 py-4 text-lg font-semibold text-white shadow-[0_10px_40px_rgba(37,99,235,0.4)] transition-all duration-300"
               >
                 Apply Now
-                <ArrowRight
-                  className="transition-transform duration-300 group-hover:translate-x-1"
-                  size={20}
-                />
+                <motion.span
+                  animate={{ x: [0, 4, 0] }}
+                  transition={{ duration: 1.5, repeat: Infinity }}
+                >
+                  <ArrowRight size={20} />
+                </motion.span>
               </motion.button>
 
-              {/* SECONDARY BUTTON */}
               <motion.button
                 whileHover={{
-                  scale: 1.05,
+                  scale: 1.04,
+                  backgroundColor: "rgba(255,255,255,0.12)",
                 }}
-                whileTap={{
-                  scale: 0.96,
-                }}
-                className="rounded-full border border-white/10 bg-white/5 px-8 py-4 text-lg font-medium text-white backdrop-blur-xl transition-all duration-300 hover:bg-white/10"
+                whileTap={{ scale: 0.97 }}
+                className="rounded-full border border-white/10 bg-white/5 px-10 py-4 text-lg font-medium text-white backdrop-blur-xl transition-all duration-300"
               >
                 Explore Campus
               </motion.button>
-            </div>
+            </motion.div>
 
             {/* STATS */}
-            <div className="mt-20 grid gap-8 border-t border-white/10 pt-10 sm:grid-cols-3">
-              <div>
-                <h3 className="text-4xl font-black text-white">
-                  <Counter end={15} suffix="K+" />
-                </h3>
-
-                <p className="mt-2 text-slate-400">Active Students</p>
-              </div>
-
-              <div>
-                <h3 className="text-4xl font-black text-white">
-                  <Counter end={120} suffix="+" />
-                </h3>
-
-                <p className="mt-2 text-slate-400">Programs Offered</p>
-              </div>
-
-              <div>
-                <h3 className="text-4xl font-black text-white">98%</h3>
-
-                <p className="mt-2 text-slate-400">Student Satisfaction</p>
-              </div>
-            </div>
+            <motion.div
+              initial={{ opacity: 0 }}
+              whileInView={{ opacity: 1 }}
+              transition={{ duration: 0.7, delay: 0.5 }}
+              viewport={{ once: true }}
+              className="mt-20 grid gap-8 border-t border-white/10 pt-10 sm:grid-cols-3"
+            >
+              {[
+                { end: 15, suffix: "K+", label: "Active Students" },
+                { end: 120, suffix: "+", label: "Programs Offered" },
+                { value: "98%", label: "Student Satisfaction" },
+              ].map((stat, i) => (
+                <motion.div
+                  key={i}
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.55 + i * 0.1 }}
+                  viewport={{ once: true }}
+                  whileHover={{ y: -4 }}
+                  className="cursor-default"
+                >
+                  <h3 className="text-4xl font-black text-white">
+                    {"end" in stat ? (
+                      <Counter end={stat.end!} suffix={stat.suffix!} />
+                    ) : (
+                      stat.value
+                    )}
+                  </h3>
+                  <p className="mt-2 text-slate-400">{stat.label}</p>
+                </motion.div>
+              ))}
+            </motion.div>
           </div>
         </motion.div>
       </div>
