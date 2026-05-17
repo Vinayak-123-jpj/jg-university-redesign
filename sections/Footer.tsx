@@ -3,8 +3,9 @@
 import { motion } from "framer-motion";
 import { ArrowUpRight } from "lucide-react";
 import Image from "next/image";
+import type { ReactNode } from "react";
 
-const socials = [];
+const socials: { icon: ReactNode; link: string }[] = [];
 
 export default function Footer() {
   const scrollToTop = () => window.scrollTo({ top: 0, behavior: "smooth" });
@@ -12,7 +13,7 @@ export default function Footer() {
   return (
     <footer className="relative overflow-hidden bg-[#050B14] pt-32 pb-14">
       {/* BG IMAGE */}
-      <div className="absolute inset-0 opacity-10 relative">
+      <div className="absolute inset-0 opacity-10">
         <Image
           src="https://images.unsplash.com/photo-1498243691581-b145c3f54a5a?w=1600&q=60&fit=crop"
           alt="Campus night"
