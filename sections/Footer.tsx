@@ -3,9 +3,9 @@
 import { motion } from "framer-motion";
 import { ArrowUpRight } from "lucide-react";
 import Image from "next/image";
-import type { ReactNode } from "react";
+import type { LucideIcon } from "lucide-react";
 
-const socials: { icon: ReactNode; href: string }[] = [];
+const socials: { icon: LucideIcon; href: string }[] = [];
 
 export default function Footer() {
   const scrollToTop = () => window.scrollTo({ top: 0, behavior: "smooth" });
