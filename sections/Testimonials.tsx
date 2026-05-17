@@ -1,36 +1,43 @@
 "use client";
 
 import { motion, AnimatePresence } from "framer-motion";
-import { Star, Quote, ChevronLeft, ChevronRight } from "lucide-react";
+import { Star, Quote } from "lucide-react";
 import { useState } from "react";
+import Image from "next/image";
 
 const testimonials = [
   {
     name: "Aarav Sharma",
-    role: "Computer Science Student",
-    review:
-      "The campus environment completely transformed my learning experience. The innovation-driven culture pushed me beyond my limits.",
+    role: "Computer Science",
     year: "3rd Year",
-    avatar: "A",
+    review:
+      "The campus environment completely transformed my learning experience. The innovation-driven culture pushed me beyond my limits and opened doors I never imagined.",
+    avatar:
+      "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&h=150&q=80&fit=crop&crop=face",
     color: "from-blue-600 to-blue-700",
+    bg: "https://images.unsplash.com/photo-1517694712202-14dd9538aa97?w=400&q=60&fit=crop",
   },
   {
     name: "Priya Mehta",
     role: "Design & Innovation",
-    review:
-      "From creative labs to mentorship opportunities, everything felt modern, premium, and future-focused.",
     year: "2nd Year",
-    avatar: "P",
+    review:
+      "From creative labs to mentorship opportunities, everything felt modern, premium, and future-focused. I found my creative voice here.",
+    avatar:
+      "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=150&h=150&q=80&fit=crop&crop=face",
     color: "from-cyan-500 to-blue-600",
+    bg: "https://images.unsplash.com/photo-1561070791-2526d30994b5?w=400&q=60&fit=crop",
   },
   {
     name: "Rohan Verma",
     role: "Business Management",
-    review:
-      "The real-world exposure and industry-focused learning helped me gain confidence and practical skills.",
     year: "Final Year",
-    avatar: "R",
+    review:
+      "The real-world exposure and industry-focused learning helped me gain confidence and practical skills that set me apart in interviews.",
+    avatar:
+      "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=150&h=150&q=80&fit=crop&crop=face",
     color: "from-blue-700 to-indigo-600",
+    bg: "https://images.unsplash.com/photo-1556761175-4b46a572b786?w=400&q=60&fit=crop",
   },
 ];
 
@@ -39,16 +46,10 @@ export default function Testimonials() {
 
   return (
     <section className="relative overflow-hidden bg-[#F8FBFF] py-36">
-      {/* BACKGROUND */}
       <motion.div
         animate={{ scale: [1, 1.3, 1], opacity: [0.2, 0.35, 0.2] }}
         transition={{ duration: 8, repeat: Infinity }}
         className="absolute left-0 top-0 h-[500px] w-[500px] rounded-full bg-blue-200/40 blur-[140px]"
-      />
-      <motion.div
-        animate={{ scale: [1, 1.2, 1], opacity: [0.15, 0.25, 0.15] }}
-        transition={{ duration: 10, repeat: Infinity, delay: 3 }}
-        className="absolute right-0 bottom-0 h-[400px] w-[400px] rounded-full bg-cyan-100/40 blur-[100px]"
       />
 
       <div className="container-custom relative z-10">
@@ -58,7 +59,7 @@ export default function Testimonials() {
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
           viewport={{ once: true }}
-          className="mx-auto mb-24 max-w-4xl text-center"
+          className="mx-auto mb-20 max-w-4xl text-center"
         >
           <motion.p
             initial={{ opacity: 0, scale: 0.8 }}
@@ -68,14 +69,13 @@ export default function Testimonials() {
           >
             Student Experiences
           </motion.p>
-
           <h2 className="text-5xl font-bold leading-tight text-slate-900 md:text-6xl">
             Voices Of The
             <span className="block text-blue-600">Future Leaders</span>
           </h2>
         </motion.div>
 
-        {/* TESTIMONIAL GRID */}
+        {/* CARDS */}
         <div className="grid gap-8 lg:grid-cols-3">
           {testimonials.map((item, index) => (
             <motion.div
@@ -86,13 +86,13 @@ export default function Testimonials() {
               viewport={{ once: true }}
               whileHover={{ y: -14, scale: 1.02 }}
               onClick={() => setActive(index)}
-              className={`group relative cursor-pointer overflow-hidden rounded-[36px] border bg-white/80 p-8 shadow-md backdrop-blur-2xl transition-all duration-500 ${
+              className={`group relative cursor-pointer overflow-hidden rounded-[36px] border bg-white/90 p-8 shadow-md backdrop-blur-2xl transition-all duration-500 ${
                 active === index
                   ? "border-blue-300 shadow-[0_20px_80px_rgba(37,99,235,0.2)]"
-                  : "border-white/60 hover:shadow-[0_20px_80px_rgba(37,99,235,0.12)]"
+                  : "border-white/60 hover:shadow-[0_20px_60px_rgba(37,99,235,0.12)]"
               }`}
             >
-              {/* Active indicator */}
+              {/* Active top bar */}
               <AnimatePresence>
                 {active === index && (
                   <motion.div
@@ -105,15 +105,19 @@ export default function Testimonials() {
                 )}
               </AnimatePresence>
 
-              {/* GLOW */}
-              <motion.div
-                initial={{ opacity: 0 }}
-                whileHover={{ opacity: 1 }}
-                className="absolute -right-10 -top-10 h-40 w-40 rounded-full bg-blue-100 blur-3xl"
-              />
+              {/* BG image blur on hover */}
+              <div className="absolute inset-0 overflow-hidden rounded-[36px] relative">
+                <Image
+                  src={item.bg}
+                  alt=""
+                  fill
+                  sizes="(max-width: 768px) 100vw, 50vw"
+                  className="object-cover opacity-0 group-hover:opacity-[0.04] transition-opacity duration-700"
+                />
+              </div>
 
               <div className="relative z-10">
-                {/* QUOTE ICON */}
+                {/* Quote icon */}
                 <motion.div
                   animate={{ rotate: [0, 5, 0] }}
                   transition={{ duration: 4, repeat: Infinity, delay: index }}
@@ -122,7 +126,7 @@ export default function Testimonials() {
                   <Quote size={32} className="fill-current" />
                 </motion.div>
 
-                {/* STARS */}
+                {/* Stars */}
                 <div className="mb-6 flex gap-1">
                   {[...Array(5)].map((_, i) => (
                     <motion.div
@@ -140,20 +144,24 @@ export default function Testimonials() {
                   ))}
                 </div>
 
-                {/* REVIEW */}
                 <p className="mb-10 leading-relaxed text-slate-600">
                   "{item.review}"
                 </p>
 
-                {/* PROFILE */}
+                {/* Profile */}
                 <div className="flex items-center gap-4">
                   <motion.div
-                    whileHover={{ scale: 1.1, rotate: 5 }}
-                    className={`flex h-14 w-14 items-center justify-center rounded-full bg-gradient-to-br ${item.color} text-lg font-bold text-white shadow-lg`}
+                    whileHover={{ scale: 1.12, rotate: 3 }}
+                    className="relative h-14 w-14 overflow-hidden rounded-full ring-2 ring-blue-100 ring-offset-2"
                   >
-                    {item.avatar}
+                    <Image
+                      src={item.avatar}
+                      alt={item.name}
+                      fill
+                      sizes="(max-width: 768px) 100vw, 50vw"
+                      className="object-cover"
+                    />
                   </motion.div>
-
                   <div>
                     <h4 className="text-lg font-semibold text-slate-900">
                       {item.name}
@@ -168,7 +176,7 @@ export default function Testimonials() {
           ))}
         </div>
 
-        {/* DOTS */}
+        {/* DOT NAVIGATION */}
         <div className="mt-10 flex justify-center gap-3">
           {testimonials.map((_, i) => (
             <motion.button
@@ -176,14 +184,16 @@ export default function Testimonials() {
               onClick={() => setActive(i)}
               whileHover={{ scale: 1.3 }}
               whileTap={{ scale: 0.9 }}
-              className={`rounded-full transition-all duration-300 ${
-                active === i ? "w-8 h-3 bg-blue-600" : "w-3 h-3 bg-slate-300"
-              }`}
+              animate={{
+                width: active === i ? 28 : 12,
+                backgroundColor: active === i ? "#2563eb" : "#cbd5e1",
+              }}
+              className="h-3 rounded-full"
             />
           ))}
         </div>
 
-        {/* FLOATING TRUST CARD */}
+        {/* TRUST STRIP */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}

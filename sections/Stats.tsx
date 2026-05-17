@@ -3,6 +3,7 @@
 import { motion, useInView } from "framer-motion";
 import { Users, GraduationCap, Trophy, Globe } from "lucide-react";
 import Counter from "@/components/Counter";
+import Image from "next/image";
 import { useRef } from "react";
 
 const stats = [
@@ -42,18 +43,19 @@ export default function Stats() {
 
   return (
     <section className="relative overflow-hidden bg-[#081b31] py-24">
-      {/* Animated background grid */}
-      <div className="absolute inset-0 opacity-5">
-        {[...Array(10)].map((_, i) => (
-          <div
-            key={i}
-            className="absolute h-full w-[1px] bg-blue-400"
-            style={{ left: `${i * 11}%` }}
-          />
-        ))}
+      {/* BACKGROUND IMAGE with heavy overlay */}
+      <div className="absolute inset-0 relative">
+        <Image
+          src="https://images.unsplash.com/photo-1517486808906-6ca8b3f04846?w=1400&q=80&fit=crop"
+          alt="Campus aerial"
+          sizes="(max-width: 768px) 100vw, 50vw"
+          fill
+          className="object-cover opacity-20"
+        />
+        <div className="absolute inset-0 bg-gradient-to-b from-[#081b31]/80 via-[#081b31]/70 to-[#081b31]/80" />
       </div>
 
-      {/* Glow orbs */}
+      {/* Animated glow orbs */}
       <motion.div
         animate={{ scale: [1, 1.3, 1], opacity: [0.15, 0.25, 0.15] }}
         transition={{ duration: 6, repeat: Infinity }}
@@ -82,7 +84,6 @@ export default function Stats() {
           >
             Trusted By Thousands
           </motion.p>
-
           <h2 className="text-4xl font-bold leading-tight text-white md:text-5xl">
             Empowering Students With
             <span className="block text-blue-400">Innovation & Excellence</span>
@@ -98,16 +99,11 @@ export default function Stats() {
                 key={index}
                 initial={{ opacity: 0, y: 50, scale: 0.9 }}
                 whileInView={{ opacity: 1, y: 0, scale: 1 }}
-                transition={{
-                  duration: 0.6,
-                  delay: index * 0.12,
-                  ease: "easeOut",
-                }}
+                transition={{ duration: 0.6, delay: index * 0.12 }}
                 viewport={{ once: true }}
                 whileHover={{ y: -12, scale: 1.03 }}
-                className="group relative cursor-default overflow-hidden rounded-[28px] border border-white/10 bg-white/5 p-8 backdrop-blur-xl transition-all duration-500 hover:border-blue-500/30 hover:bg-white/8 hover:shadow-[0_20px_60px_rgba(37,99,235,0.2)]"
+                className="group relative cursor-default overflow-hidden rounded-[28px] border border-white/10 bg-white/5 p-8 backdrop-blur-xl transition-all duration-500 hover:border-blue-500/30 hover:shadow-[0_20px_60px_rgba(37,99,235,0.2)]"
               >
-                {/* Glow on hover */}
                 <motion.div
                   initial={{ opacity: 0 }}
                   whileHover={{ opacity: 1 }}
@@ -118,7 +114,6 @@ export default function Stats() {
                   }}
                 />
 
-                {/* Animated ring */}
                 <motion.div
                   animate={{ rotate: 360 }}
                   transition={{
@@ -147,7 +142,6 @@ export default function Stats() {
 
                   <p className="text-slate-300">{item.label}</p>
 
-                  {/* Bottom accent line */}
                   <motion.div
                     initial={{ scaleX: 0 }}
                     whileInView={{ scaleX: 1 }}

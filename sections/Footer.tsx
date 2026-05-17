@@ -1,18 +1,28 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { ArrowUpRight, Camera, Link, Share2 } from "lucide-react";
+import { ArrowUpRight } from "lucide-react";
+import Image from "next/image";
 
-const socials = [
-  { icon: Camera, label: "IG" }, // Instagram
-  { icon: Link, label: "IN" }, // LinkedIn
-  { icon: Share2, label: "TW" }, // Twitter
-];
+const socials = [];
+
 export default function Footer() {
   const scrollToTop = () => window.scrollTo({ top: 0, behavior: "smooth" });
 
   return (
     <footer className="relative overflow-hidden bg-[#050B14] pt-32 pb-14">
+      {/* BG IMAGE */}
+      <div className="absolute inset-0 opacity-10 relative">
+        <Image
+          src="https://images.unsplash.com/photo-1498243691581-b145c3f54a5a?w=1600&q=60&fit=crop"
+          alt="Campus night"
+          sizes="(max-width: 768px) 100vw, 50vw"
+          fill
+          className="object-cover"
+        />
+        <div className="absolute inset-0 bg-gradient-to-b from-[#050B14]/60 to-[#050B14]/90" />
+      </div>
+
       {/* GLOW */}
       <motion.div
         animate={{ scale: [1, 1.4, 1], opacity: [0.15, 0.28, 0.15] }}
@@ -20,18 +30,7 @@ export default function Footer() {
         className="absolute left-1/2 top-0 h-[500px] w-[500px] -translate-x-1/2 rounded-full bg-blue-500/20 blur-[140px]"
       />
 
-      {/* Animated dot grid */}
-      <div
-        className="absolute inset-0 opacity-[0.02]"
-        style={{
-          backgroundImage:
-            "radial-gradient(circle, #60a5fa 1px, transparent 1px)",
-          backgroundSize: "44px 44px",
-        }}
-      />
-
       <div className="container-custom relative z-10">
-        {/* TOP AREA */}
         <div className="grid gap-16 border-b border-white/10 pb-20 lg:grid-cols-2">
           {/* LEFT */}
           <motion.div
@@ -40,22 +39,15 @@ export default function Footer() {
             transition={{ duration: 0.8 }}
             viewport={{ once: true }}
           >
-            <motion.p
-              initial={{ opacity: 0 }}
-              whileInView={{ opacity: 1 }}
-              viewport={{ once: true }}
-              className="mb-5 text-sm uppercase tracking-[0.35em] text-blue-300"
-            >
+            <p className="mb-5 text-sm uppercase tracking-[0.35em] text-blue-300">
               JG University
-            </motion.p>
-
+            </p>
             <h2 className="text-4xl font-black leading-tight text-white sm:text-5xl md:text-7xl">
               The Future
               <span className="block bg-gradient-to-r from-blue-400 to-cyan-300 bg-clip-text text-transparent">
                 Starts Now
               </span>
             </h2>
-
             <p className="mt-8 max-w-xl text-lg leading-relaxed text-slate-400">
               Empowering the next generation with innovation, creativity,
               leadership, and future-focused learning experiences.
@@ -66,18 +58,19 @@ export default function Footer() {
               {socials.map((social, index) => {
                 const Icon = social.icon;
                 return (
-                  <motion.div
+                  <motion.a
                     key={index}
+                    href={social.href}
                     initial={{ opacity: 0, scale: 0.5 }}
                     whileInView={{ opacity: 1, scale: 1 }}
                     transition={{ delay: index * 0.1 + 0.3, type: "spring" }}
                     viewport={{ once: true }}
                     whileHover={{ y: -6, scale: 1.1 }}
                     whileTap={{ scale: 0.95 }}
-                    className="flex h-14 w-14 cursor-pointer items-center justify-center rounded-full border border-white/10 bg-white/5 text-white backdrop-blur-xl transition-all duration-300 hover:border-blue-500/40 hover:bg-blue-500/15 hover:text-blue-300"
+                    className="flex h-14 w-14 cursor-pointer items-center justify-center rounded-full border border-white/10 bg-white/5 text-white backdrop-blur-xl transition-all hover:border-blue-500/40 hover:bg-blue-500/15 hover:text-blue-300"
                   >
                     <Icon size={18} />
-                  </motion.div>
+                  </motion.a>
                 );
               })}
             </div>
@@ -157,17 +150,14 @@ export default function Footer() {
             whileHover={{ y: -4, scale: 1.04 }}
             whileTap={{ scale: 0.97 }}
             onClick={scrollToTop}
-            className="group flex items-center gap-3 rounded-full border border-white/10 bg-white/5 px-6 py-3 text-white backdrop-blur-xl transition-all duration-300 hover:border-blue-500/30 hover:bg-blue-500/10"
+            className="group flex items-center gap-3 rounded-full border border-white/10 bg-white/5 px-6 py-3 text-white backdrop-blur-xl transition-all hover:border-blue-500/30 hover:bg-blue-500/10"
           >
             Back To Top
             <motion.span
               animate={{ y: [0, -3, 0] }}
               transition={{ duration: 1.5, repeat: Infinity }}
             >
-              <ArrowUpRight
-                size={18}
-                className="transition-transform duration-300 group-hover:-translate-y-1 group-hover:translate-x-1"
-              />
+              <ArrowUpRight size={18} />
             </motion.span>
           </motion.button>
         </div>

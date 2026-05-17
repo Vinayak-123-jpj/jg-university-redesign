@@ -1,12 +1,14 @@
 "use client";
+
 import Counter from "@/components/Counter";
 import { motion } from "framer-motion";
 import { ArrowRight, Sparkles } from "lucide-react";
+import Image from "next/image";
 
 export default function CTA() {
   return (
     <section className="relative overflow-hidden bg-[#07111F] py-40">
-      {/* BACKGROUND GLOWS */}
+      {/* GLOW ORBS */}
       <motion.div
         animate={{ scale: [1, 1.4, 1], opacity: [0.15, 0.28, 0.15] }}
         transition={{ duration: 7, repeat: Infinity }}
@@ -18,24 +20,29 @@ export default function CTA() {
         className="absolute bottom-0 right-0 h-[400px] w-[400px] rounded-full bg-cyan-400/10 blur-[120px]"
       />
 
-      {/* Animated dot grid */}
-      <div
-        className="absolute inset-0 opacity-[0.025]"
-        style={{
-          backgroundImage:
-            "radial-gradient(circle, #60a5fa 1px, transparent 1px)",
-          backgroundSize: "48px 48px",
-        }}
-      />
-
       <div className="container-custom relative z-10">
         <motion.div
           initial={{ opacity: 0, y: 60 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.9 }}
           viewport={{ once: true }}
-          className="relative overflow-hidden rounded-[52px] border border-white/10 bg-white/[0.04] px-8 py-24 text-center backdrop-blur-2xl"
+          className="relative overflow-hidden rounded-[52px] border border-white/10 px-8 py-20 text-center"
         >
+          {/* BACKGROUND IMAGE */}
+          <div className="absolute inset-0 relative">
+            <Image
+              src="https://images.unsplash.com/photo-1541339907198-e08756dedf3f?w=1400&q=70&fit=crop"
+              alt="University campus"
+              sizes="(max-width: 768px) 100vw, 50vw"
+              fill
+              className="object-cover opacity-15"
+            />
+            <div className="absolute inset-0 bg-gradient-to-b from-[#07111F]/70 via-[#07111F]/60 to-[#07111F]/70" />
+          </div>
+
+          {/* Glass layer */}
+          <div className="absolute inset-0 bg-white/[0.02] backdrop-blur-sm" />
+
           {/* Inner glow */}
           <motion.div
             animate={{ scale: [1, 1.3, 1], opacity: [0.15, 0.3, 0.15] }}
@@ -44,10 +51,10 @@ export default function CTA() {
           />
 
           {/* Animated border rings */}
-          {[1, 0.7, 0.4].map((opacity, i) => (
+          {[1, 0.6, 0.3].map((opacity, i) => (
             <motion.div
               key={i}
-              animate={{ scale: [1, 1.04, 1] }}
+              animate={{ scale: [1, 1.03, 1] }}
               transition={{ duration: 4 + i, repeat: Infinity, delay: i * 0.8 }}
               className="absolute inset-0 rounded-[52px] border border-white/10"
               style={{ opacity }}
@@ -72,7 +79,6 @@ export default function CTA() {
               Admissions Open 2026
             </motion.div>
 
-            {/* TITLE */}
             <motion.h2
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -86,7 +92,6 @@ export default function CTA() {
               </span>
             </motion.h2>
 
-            {/* DESCRIPTION */}
             <motion.p
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -105,7 +110,7 @@ export default function CTA() {
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.7, delay: 0.35 }}
               viewport={{ once: true }}
-              className="mt-14 flex flex-col items-center justify-center gap-5 sm:flex-row"
+              className="mt-12 flex flex-col items-center justify-center gap-5 sm:flex-row"
             >
               <motion.button
                 whileHover={{
@@ -113,7 +118,7 @@ export default function CTA() {
                   boxShadow: "0 20px 60px rgba(37,99,235,0.5)",
                 }}
                 whileTap={{ scale: 0.97 }}
-                className="group flex items-center gap-3 rounded-full bg-gradient-to-r from-blue-600 to-cyan-500 px-10 py-4 text-lg font-semibold text-white shadow-[0_10px_40px_rgba(37,99,235,0.4)] transition-all duration-300"
+                className="group flex items-center gap-3 rounded-full bg-gradient-to-r from-blue-600 to-cyan-500 px-10 py-4 text-lg font-semibold text-white shadow-[0_10px_40px_rgba(37,99,235,0.4)]"
               >
                 Apply Now
                 <motion.span
@@ -130,7 +135,7 @@ export default function CTA() {
                   backgroundColor: "rgba(255,255,255,0.12)",
                 }}
                 whileTap={{ scale: 0.97 }}
-                className="rounded-full border border-white/10 bg-white/5 px-10 py-4 text-lg font-medium text-white backdrop-blur-xl transition-all duration-300"
+                className="rounded-full border border-white/15 bg-white/5 px-10 py-4 text-lg font-medium text-white backdrop-blur-xl"
               >
                 Explore Campus
               </motion.button>
@@ -142,7 +147,7 @@ export default function CTA() {
               whileInView={{ opacity: 1 }}
               transition={{ duration: 0.7, delay: 0.5 }}
               viewport={{ once: true }}
-              className="mt-20 grid gap-8 border-t border-white/10 pt-10 sm:grid-cols-3"
+              className="mt-16 grid gap-8 border-t border-white/10 pt-10 sm:grid-cols-3"
             >
               {[
                 { end: 15, suffix: "K+", label: "Active Students" },
@@ -160,7 +165,10 @@ export default function CTA() {
                 >
                   <h3 className="text-4xl font-black text-white">
                     {"end" in stat ? (
-                      <Counter end={stat.end!} suffix={stat.suffix!} />
+                      <Counter
+                        end={(stat as any).end}
+                        suffix={(stat as any).suffix}
+                      />
                     ) : (
                       stat.value
                     )}
